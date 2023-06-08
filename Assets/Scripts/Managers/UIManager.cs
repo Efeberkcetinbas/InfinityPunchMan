@@ -23,14 +23,12 @@ public class UIManager : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnUpdateUI, OnUIUpdate);
         EventManager.AddHandler(GameEvent.OnUpdateGameOverUI,OnUIGameOver);
         EventManager.AddHandler(GameEvent.OnNextRound,OnRoundUpdate);
-        EventManager.AddHandler(GameEvent.OnTargetHit,OnHit);
     }
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnUpdateUI, OnUIUpdate);
         EventManager.RemoveHandler(GameEvent.OnUpdateGameOverUI,OnUIGameOver);
         EventManager.RemoveHandler(GameEvent.OnNextRound,OnRoundUpdate);
-        EventManager.RemoveHandler(GameEvent.OnTargetHit,OnHit);
     }
 
     
@@ -62,11 +60,7 @@ public class UIManager : MonoBehaviour
         Debug.Log(tempRoundNumber);
     }
 
-    void OnHit()
-    {
-        Debug.Log("AMOUNT : " + amount);
-        progressImage.DOFillAmount(amount,0.1f);
-    }
+    
 
     private IEnumerator GetBack()
     {

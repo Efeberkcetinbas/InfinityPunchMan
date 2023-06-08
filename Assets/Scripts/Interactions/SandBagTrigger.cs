@@ -36,7 +36,7 @@ public class SandBagTrigger : Obstacable
         transform.DOLocalMoveZ(transform.position.z+5,duration).OnComplete(()=>gameObject.SetActive(false));
         //transform.DOLocalRotate();
         //transform.DOScale(oldScale/3f,duration);
-        //EventManager.Broadcast(GameEvent.OnTargetHit);
+        EventManager.Broadcast(GameEvent.OnTargetHit);
         Instantiate(particleEffect,particlePos.position,Quaternion.identity);
         StartCoinMove(gameObject);
         
