@@ -11,9 +11,19 @@ public class PowerBar : MonoBehaviour
     [SerializeField] private Animator handAnim;
     public GameData gameData;
 
+
     private void Start() 
     {
         handAnim=GetComponent<Animator>();
+    }
+
+    private void OnEnable() 
+    {
+    }
+
+    private void OnDisable() 
+    {
+        
     }
 
 
@@ -23,6 +33,7 @@ public class PowerBar : MonoBehaviour
         {
             var multiplier=other.gameObject.name;
             powerToShow.text=(gameData.increaseDamageAmount*float.Parse(multiplier)).ToString();
+            gameData.multipleDamageAmount=gameData.increaseDamageAmount*float.Parse(multiplier);
             PlayerPrefs.SetFloat("reward",float.Parse(powerToShow.text));
         }
         //https://www.youtube.com/watch?v=TRUOqUGAfLM
@@ -31,9 +42,14 @@ public class PowerBar : MonoBehaviour
 
     public void GetThePoint()
     {
-        handAnim.enabled=false;
+        //handAnim.enabled=false;
         gameData.TotalDamageAmount+=PlayerPrefs.GetFloat("reward");
         totalPower.text=gameData.TotalDamageAmount.ToString();
         //Debug.Log(gameData.TotalDamageAmount);
     }
+
+    
+
+    
+
 }

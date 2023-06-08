@@ -8,7 +8,7 @@ public class SandBagTrigger : Obstacable
 {
     [SerializeField] private GameObject particleEffect;
 
-    [SerializeField] private float z,old_z,duration;
+    [SerializeField] private float duration;
 
     private Vector3 oldScale;
     
@@ -20,9 +20,10 @@ public class SandBagTrigger : Obstacable
 
     [SerializeField] private GameData gameData;
 
+    [SerializeField] private Camera mainCam;
 
 
-    [SerializeField] private bool isLeft,isRight,isUp,isDown;
+
     
 
 
@@ -32,9 +33,9 @@ public class SandBagTrigger : Obstacable
     }
     internal override void DoAction(PlayerTrigger player)
     {
-        transform.DOLocalMoveZ(z,duration);
+        transform.DOLocalMoveZ(transform.position.z+5,duration).OnComplete(()=>gameObject.SetActive(false));
         //transform.DOLocalRotate();
-        transform.DOScale(oldScale/3f,duration);
+        //transform.DOScale(oldScale/3f,duration);
         //EventManager.Broadcast(GameEvent.OnTargetHit);
         Instantiate(particleEffect,particlePos.position,Quaternion.identity);
         StartCoinMove(gameObject);
@@ -49,8 +50,9 @@ public class SandBagTrigger : Obstacable
         GameObject coin=Instantiate(increaseScorePrefab,pointPos.transform.position,increaseScorePrefab.transform.rotation);
         coin.transform.DOLocalJump(coin.transform.localPosition,1,1,1,false);
         //coin.transform.DOScale(Vector3.zero,1.5f);
-        coin.transform.GetChild(0).GetComponent<TextMeshPro>().text=" + " + gameData.increaseScore.ToString();
+        coin.transform.GetChild(0).GetComponent<TextMeshPro>().text=" + " + gameData.multipleDamageAmount.ToString();
         coin.transform.GetChild(0).GetComponent<TextMeshPro>().DOFade(0,1.5f).OnComplete(()=>coin.transform.GetChild(0).gameObject.SetActive(false));
+        coin.transform.LookAt(mainCam.transform.position);
         Destroy(coin,2);
     }
 }

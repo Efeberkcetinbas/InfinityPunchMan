@@ -13,6 +13,7 @@ public enum GameEvent
     OnUpdateGameOverManager,
     OnGameOver,
     OnNextRound,
+    OnMoveFinish,
 
 
    

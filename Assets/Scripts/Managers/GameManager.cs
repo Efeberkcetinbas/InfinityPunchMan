@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public float InitialDifficultyValue;
 
+    [SerializeField] private GameObject PowerBar;
+
 
     private void Awake() 
     {
@@ -25,12 +27,16 @@ public class GameManager : MonoBehaviour
     {
         EventManager.AddHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
         EventManager.AddHandler(GameEvent.OnUpdateGameOverManager,OnGameOver);
+        EventManager.AddHandler(GameEvent.OnMoveFinish,OnMoveFinish);
+        EventManager.AddHandler(GameEvent.OnTouchScreen,OnTouchScreen);
     }
 
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
         EventManager.RemoveHandler(GameEvent.OnUpdateGameOverManager,OnGameOver);
+        EventManager.RemoveHandler(GameEvent.OnMoveFinish,OnMoveFinish);
+        EventManager.RemoveHandler(GameEvent.OnTouchScreen,OnTouchScreen);
     }
     
     void OnGameOver()
@@ -49,6 +55,15 @@ public class GameManager : MonoBehaviour
         EventManager.Broadcast(GameEvent.OnUpdateGameOverUI);
     }
     
+    private void OnMoveFinish()
+    {
+        PowerBar.SetActive(true);
+    }
+
+    private void OnTouchScreen()
+    {
+        PowerBar.SetActive(false);
+    }
 
     void OnIncreaseScore()
     {

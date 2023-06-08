@@ -9,6 +9,7 @@ public class GameData : ScriptableObject
     public int increaseDamageAmount=20;
 
     public float TotalDamageAmount=0;
+    public float multipleDamageAmount;
 
     public bool isGameEnd=false;
 

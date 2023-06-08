@@ -23,10 +23,12 @@ public class PlayerControl : MonoBehaviour
 
     private void OnEnable() 
     {
+        EventManager.AddHandler(GameEvent.OnMoveFinish,OnMoveFinish);
     }
 
     private void OnDisable() 
     {
+        EventManager.RemoveHandler(GameEvent.OnMoveFinish,OnMoveFinish);
     }
 
    
@@ -35,6 +37,11 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         CheckMove();
+    }
+
+    private void OnMoveFinish()
+    {
+        playerData.playerCanMove=true;
     }
 
     private void CheckMove()
@@ -50,7 +57,7 @@ public class PlayerControl : MonoBehaviour
                 Debug.Log("PUNCH");
                 powerBar.GetThePoint();
                 playerData.playerCanMove=false;
-                //EventManager.Broadcast(GameEvent.OnTouchScreen);
+                EventManager.Broadcast(GameEvent.OnTouchScreen);
                 //Paneli set Active False yap sonra da acilinca playercanMove true yap event ile
 
             }
@@ -94,8 +101,6 @@ public class PlayerControl : MonoBehaviour
                     }
                     
                 }
-
-
             }
         }
     }
